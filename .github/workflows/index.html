@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JRS ENTERPRISE PABNA</title>
+<style>
+body{font-family:Arial,sans-serif;margin:0;background:#f4f4f4;text-align:center}
+header{background:#087443;color:white;padding:25px 10px}
+h1{margin:0}
+main{padding:25px}
+.product{background:white;padding:20px;margin:15px auto;max-width:350px;border-radius:12px}
+button{background:#087443;color:white;border:0;padding:12px 22px;border-radius:7px}
+</style>
+</head>
+<body>
+<header>
+<h1>JRS ENTERPRISE PABNA</h1>
+<p>কসমেটিকস ডিলার ও পাইকারি বিক্রয় কেন্দ্র</p>
+</header>
+<main>
+<h2>আমাদের অনলাইন শপে স্বাগতম</h2>
+<div class="product">
+<h3>কসমেটিকস কালেকশন</h3>
+<p>দেশি-বিদেশি কসমেটিকস পণ্য</p>
+<p>পণ্যের দাম জানতে যোগাযোগ করুন</p>
+<button onclick="location.href='https://wa.me/8801XXXXXXXXX'">অর্ডার করুন</button>
+</div>
+<p>ঠিকানা: রবিউল মার্কেট, পাবনা</p>
+</main>
+</body>
+</html>
+ Simple workflow for deploying static content to GitHub Pages
+name: Deploy static content to Pages
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ["main"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # Single deploy job since we're just deploying
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Upload entire repository
+          path: '.'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
